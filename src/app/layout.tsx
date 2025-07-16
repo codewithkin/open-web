@@ -68,7 +68,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="OpenConfess" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-[#10231E] dark:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased dark:bg-[#10231E] dark:text-white`}
       >
         <QueryClientProviderWrapper>
           <TopBar />
