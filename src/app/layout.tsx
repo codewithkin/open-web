@@ -13,41 +13,45 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Open – Your Creative Workspace for Projects, Collaboration, and Growth",
+  title: "Open – Anonymous Confessions for Gen Z",
   description:
-    "Open is a modern web platform that empowers individuals and teams to collaborate, create, and manage projects with complete transparency and real-time updates. Built for freelancers, agencies, and clients.",
+    "Open is a safe space to speak your truth anonymously. Share thoughts, secrets, and feelings without judgment — text or voice, no accounts, no filters.",
   keywords: [
-    "Open workspace",
-    "Freelance project platform",
-    "Team collaboration tool",
-    "Real-time project updates",
-    "Client management",
-    "ProjectPulse alternative",
-    "Freliq integration",
+    "anonymous app",
+    "confessions",
+    "Gen Z",
+    "share secrets",
+    "mental health",
+    "safe space",
+    "voice confessions",
+    "open app",
+    "anonymous voice notes",
+    "emotional support",
   ],
   openGraph: {
-    title: "Open – Your Creative Workspace",
+    title: "Open – Anonymous Confessions for Gen Z",
     description:
-      "A platform where freelancers and clients connect transparently. Track progress, share updates, and grow together.",
-    url: "https://open.yourdomain.com",
+      "A space to be real. Share confessions anonymously — text or voice — with no sign-ups or tracking.",
+    url: "https://openconfess.buzz",
     siteName: "Open",
     images: [
       {
-        url: "https://open.yourdomain.com/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Open – Your Creative Workspace",
+        alt: "Open App – Anonymous Confessions",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Open – Your Creative Workspace",
+    title: "Open – Anonymous Confessions for Gen Z",
     description:
-      "Empowering creators and clients to collaborate, track, and grow transparently.",
-    images: ["https://open.yourdomain.com/twitter-card.png"],
+      "A safe space to share your truth anonymously. No accounts. No filters. Just honesty.",
+    images: ["/og-image.jpg"],
   },
+  metadataBase: new URL("https://openconfess.buzz"),
 };
 
 
