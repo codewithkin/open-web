@@ -11,6 +11,7 @@ import { Loader } from "lucide-react";
 function NewConfession() {
     // Track the content of the confession
     const [confession, setConfession] = useState("");
+    const [type, setType] = useState("text");
 
     const router = useRouter();
 
@@ -21,7 +22,7 @@ function NewConfession() {
             // Get the creator's name
             const name = localStorage.getItem("name");
 
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { text: confession, creatorName: name });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { text: confession, type, creatorName: name });
 
             return res.data
         },
