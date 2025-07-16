@@ -1,14 +1,27 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
 import { BrushCleaning } from "lucide-react";
 import Link from "next/link";
+import axios from "axios";
 
 function Feed() {
-  const confessions = [];
+  // Fetch all of the confessions from the backend
+  const { data: confessions, isLoading: fetchingConfessions } = useQuery({
+    queryKey: ["getCobfessions"],
+    queryFn: async () => {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`);
+
+      return res.data;
+    }
+  })
+
+  console.log("Confessions: ", confessions);
 
   return (
     <section className="w-full min-h-screen p-4">
       {
-        confessions.length > 0 ? (
+        confessions && confessions.length > 0 ? (
           <article></article>
         ) : (
           <Card className="w-full h-full flex flex-col justify-center items-center text-center md:my-20 my-12">
