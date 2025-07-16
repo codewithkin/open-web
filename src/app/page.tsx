@@ -32,7 +32,7 @@ function Feed() {
           ))}
         </div>
       ) : confessions && confessions.length > 0 ? (
-        <article>
+        <article className="mx-auto md:px-20 lg:px-40 xl:px-60 flex flex-col gap-12">
           {/* Map confessions here */}
           {
             confessions.map((confession: ConfessionType, index: number) => {
