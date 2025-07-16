@@ -6,6 +6,7 @@ import { useState } from "react"
 import axios from "axios"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react";
 
 function NewConfession() {
     // Track the content of the confession
@@ -17,7 +18,10 @@ function NewConfession() {
     const { mutate: createConfession, isPending: creatingConfession } = useMutation({
         mutationKey: ['createConfession'],
         mutationFn: async () => {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { confession });
+            // Get the creator's name
+            const name = localStorage.getItem("name");
+
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { text: confession, creatorName: name });
 
             return res.data
         },
@@ -36,12 +40,23 @@ function NewConfession() {
             <h2 className="text-xl font-semibold text-green-500">Post a new confession</h2>
             <article className="flex flex-col gap-2 w-full">
                 <Textarea
+                    onChange={(e) => setConfession(e.target.value)}
+                    value={confession}
                     placeholder="Last summer I..."
                 />
                 <Button disabled={creatingConfession} type="button" onClick={() => {
                     createConfession()
                 }}>
-                    Post
+                    {
+                        creatingConfession && (
+                            <Loader className="animate-spin" />
+                        )
+                    }
+                    {
+                        creatingConfession ?
+                            "Posting..." :
+                            "Post"
+                    }
                 </Button>
             </article>
             <p className="text-muted-foreground text-center text-sm">Don't worry, you're 100% anonymous, be open !</p>
