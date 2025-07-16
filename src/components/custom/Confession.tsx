@@ -25,7 +25,6 @@ function Confession({ confession }: { confession: ConfessionType }) {
         mutationKey: ["likeParams"],
         mutationFn: async () => {
             setLikes(likes + 1);
-            setLiked(true);
 
             const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions/like`, {
                 confessionId: confession.id,
@@ -36,6 +35,9 @@ function Confession({ confession }: { confession: ConfessionType }) {
         },
         onError: () => {
             toast.error("Couldn't like confession");
+        },
+        onSuccess: () => {
+            setLiked(true);
         }
     });
 
@@ -43,7 +45,6 @@ function Confession({ confession }: { confession: ConfessionType }) {
         mutationKey: ["unlikeMutation"],
         mutationFn: async () => {
             setLikes(likes - 1);
-            setLiked(false);
 
             const res = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions/like?creatorName=${name}&confessionId=${confession.id}`);
 
@@ -51,6 +52,9 @@ function Confession({ confession }: { confession: ConfessionType }) {
         },
         onError: () => {
             toast.error("Couldn't unlike confession");
+        },
+        onSuccess: () => {
+            setLiked(false);
         }
     })
 
