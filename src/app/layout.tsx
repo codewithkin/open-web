@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TopBar from "@/components/custom/TopBar";
 import QueryClientProviderWrapper from "@/providers/QueryClientProviderWrapper";
+import WelcomeDialog from "@/components/custom/WelcomeDialog";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -73,8 +74,10 @@ export default function RootLayout({
         <QueryClientProviderWrapper>
           <TopBar />
           {children}
+          <WelcomeDialog />
         </QueryClientProviderWrapper>
       </body>
     </html>
   );
 }
+
