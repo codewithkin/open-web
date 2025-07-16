@@ -1,11 +1,58 @@
-import { Confession as ConfessionType } from "@/types"
+import { ConfessionLike, Confession as ConfessionType } from "@/types"
 import { Card, CardContent } from "../ui/card"
 import { useRouter } from "next/navigation"
 import { Button } from "../ui/button";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "sonner";
 
 function Confession({ confession }: { confession: ConfessionType }) {
     const router = useRouter();
+
+    const [likes, setLikes] = useState(confession.likes.length);
+
+    const name = localStorage.getItem("name");
+
+
+    // Check if the user has liked the confession
+    const [liked, setLiked] = useState(confession.likes.some((like: ConfessionLike) => like.creatorName === name));
+
+    console.log("Liked: ", liked)
+
+    const { mutate: likeConfession, isPending: likingMutation } = useMutation({
+        mutationKey: ["likeParams"],
+        mutationFn: async () => {
+            setLikes(likes + 1);
+            setLiked(true);
+
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions/like`, {
+                confessionId: confession.id,
+                creatorName: name
+            });
+
+            return res.data;
+        },
+        onError: () => {
+            toast.error("Couldn't like confession");
+        }
+    });
+
+    const { mutate: unLikeConfession, isPending: unlikingMutation } = useMutation({
+        mutationKey: ["unlikeMutation"],
+        mutationFn: async () => {
+            setLikes(likes - 1);
+            setLiked(false);
+
+            const res = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions/like?creatorName=${name}&confessionId=${confession.id}`);
+
+            return res.data;
+        },
+        onError: () => {
+            toast.error("Couldn't unlike confession");
+        }
+    })
 
     return (
         <article className="flex flex-col gap-4 items-center w-full">
@@ -27,10 +74,16 @@ function Confession({ confession }: { confession: ConfessionType }) {
 
             {/* Actions */}
             <article className="flex items-center justify-between w-full">
-                <Button className="bg-red-100 flex gap-2 items-center hover:bg-red-200 transition duration-200" variant="default">
-                    <Heart className="fill-red-500 stroke-0" />
+                <Button onClick={() => {
+                    if (liked) {
+                        unLikeConfession()
+                    } else {
+                        likeConfession();
+                    }
+                }} className="bg-red-100 flex gap-2 items-center hover:bg-red-200 transition duration-200" variant="default">
+                    <Heart className={`${liked ? "fill-red-500 stroke-0" : "fill-none stroke-red-500"} `} />
                     <p className="text-red-500 font-semibold">
-                        {confession.likes.length}
+                        {likes || "0"}
                     </p>
                 </Button>
                 <Button className="flex gap-2 items-center" variant="ghost">

@@ -4,6 +4,7 @@ import "./globals.css";
 import TopBar from "@/components/custom/TopBar";
 import QueryClientProviderWrapper from "@/providers/QueryClientProviderWrapper";
 import WelcomeDialog from "@/components/custom/WelcomeDialog";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +76,7 @@ export default function RootLayout({
           <TopBar />
           {children}
           <WelcomeDialog />
+          <Toaster richColors expand />
         </QueryClientProviderWrapper>
       </body>
     </html>
