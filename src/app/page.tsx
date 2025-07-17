@@ -8,27 +8,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Confession from "@/components/custom/Confession";
 import { Confession as ConfessionType } from "@/types";
 import { useState } from "react";
+import { List, AutoSizer } from "react-virtualized";
 
 function Feed() {
   const [filter, setFilter] = useState("Today");
 
   const { data: confessions, isLoading: fetchingConfessions } = useQuery({
-    queryKey: ["getConfessions"],
+    queryKey: ["getConfessions", filter],
     queryFn: async () => {
       const date = new Date();
-
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions?date=${date}&filter=${filter}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions?date=${date}&filter=${filter}`
+      );
       return res.data;
     },
   });
 
-  console.log("Confessions: ", confessions);
-
   return (
     <section className="w-full min-h-screen p-4">
-      {/* Tabs */}
-
-
       {fetchingConfessions ? (
         <div className="space-y-4">
           {[...Array(5)].map((_, i: number) => (
@@ -42,15 +39,22 @@ function Feed() {
           ))}
         </div>
       ) : confessions && confessions.length > 0 ? (
-        <article className="mx-auto md:px-20 lg:px-40 xl:px-60 flex flex-col gap-12">
-          {/* Map confessions here */}
-          {
-            confessions.map((confession: ConfessionType, index: number) => {
-              return (
-                <Confession key={index} confession={confession} />
-              )
-            })
-          }
+        <article className="mx-auto md:px-20 lg:px-40 xl:px-60 flex flex-col gap-12" style={{ height: "80vh" }}>
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                width={width}
+                height={height}
+                rowCount={confessions.length}
+                rowHeight={250} // Adjust based on your Confession component height
+                rowRenderer={({ key, index, style }) => (
+                  <div key={key} style={style}>
+                    <Confession confession={confessions[index]} />
+                  </div>
+                )}
+              />
+            )}
+          </AutoSizer>
         </article>
       ) : (
         <Card className="w-full h-full flex flex-col justify-center items-center text-center md:my-20 my-12">
