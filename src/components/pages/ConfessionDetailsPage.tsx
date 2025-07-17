@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { queryClient } from "@/providers/QueryClientProviderWrapper";
+import BreadCrumbs from "../custom/BreadCrumbs";
 
 function ConfessionDetailsPage({ id }: { id: string }) {
   const router = useRouter();
@@ -120,6 +121,7 @@ function ConfessionDetailsPage({ id }: { id: string }) {
 
   return (
     <section className="flex flex-col gap-4 p-4 md:p-20">
+        <BreadCrumbs />
       {/* Confession Text Card */}
       <article
         style={{
