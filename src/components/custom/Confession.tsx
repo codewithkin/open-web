@@ -112,8 +112,8 @@ function Confession({ confession }: { confession: ConfessionType }) {
                 <CardContent>
                     <p className="text-xl md:text-2xl font-bold text-white">
                         {confession.title && (
-                            confession.title.length > 4
-                                ? confession.title.slice(0, 4) + "..."
+                            confession.title.length > 50
+                                ? confession.title.slice(0, 50) + "..."
                                 : confession.title
                         )}
 
