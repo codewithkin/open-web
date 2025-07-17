@@ -7,12 +7,17 @@ import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
 import Confession from "@/components/custom/Confession";
 import { Confession as ConfessionType } from "@/types";
+import { useState } from "react";
 
 function Feed() {
+  const [filter, setFilter] = useState("Today");
+
   const { data: confessions, isLoading: fetchingConfessions } = useQuery({
     queryKey: ["getConfessions"],
     queryFn: async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`);
+      const date = new Date();
+
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions?date=${date}&filter=${filter}`);
       return res.data;
     },
   });
@@ -21,12 +26,17 @@ function Feed() {
 
   return (
     <section className="w-full min-h-screen p-4">
+      {/* Tabs */}
+
+
       {fetchingConfessions ? (
         <div className="space-y-4">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(5)].map((_, i: number) => (
             <Card key={i} className="w-full p-4 space-y-3">
               <Skeleton className="h-6 w-1/3 rounded bg-slate-300" />
               <Skeleton className="h-4 w-full rounded bg-slate-300" />
+              <Skeleton className="h-4 w-5/6 rounded bg-slate-300" />
+              <Skeleton className="h-4 w-5/6 rounded bg-slate-300" />
               <Skeleton className="h-4 w-5/6 rounded bg-slate-300" />
             </Card>
           ))}
