@@ -68,6 +68,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6071419245494198"
+      crossOrigin="anonymous">
+      </script>
+      <meta name="google-adsense-account" content="ca-pub-6071419245494198"></meta>
         <meta name="apple-mobile-web-app-title" content="OpenConfess" />
       </head>
       <body
