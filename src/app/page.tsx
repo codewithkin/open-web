@@ -46,7 +46,7 @@ function Feed() {
                 width={width}
                 height={height}
                 rowCount={confessions.length}
-                rowHeight={290} // Adjust based on your Confession component height
+                rowHeight={350} // Adjust based on your Confession component height
                 rowRenderer={({ key, index, style }) => (
                   <div key={key} style={style}>
                     <Confession confession={confessions[index]} />

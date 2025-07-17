@@ -110,10 +110,10 @@ function Confession({ confession }: { confession: ConfessionType }) {
                 </article>
                 <article className="min-h-[20px] md:min-h-[70px]"></article>
                 <CardContent>
-                    <p className="text-xl md:text-2xl font-bold text-white">
+                    <p className="text-md md:text-xl md:text-2xl font-bold text-white">
                         {confession.title && (
-                            confession.title.length > 50
-                                ? confession.title.slice(0, 50) + "..."
+                            confession.title.length > 100
+                                ? confession.title.slice(0, 100) + "..."
                                 : confession.title
                         )}
 
