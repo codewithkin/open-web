@@ -7,10 +7,12 @@ import axios from "axios"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"
 import { Loader } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 function NewConfession() {
     // Track the content of the confession
     const [confession, setConfession] = useState("");
+    const [title, setTitle] = useState("");
     const [type, setType] = useState("text");
 
     const router = useRouter();
@@ -22,7 +24,7 @@ function NewConfession() {
             // Get the creator's name
             const name = localStorage.getItem("name");
 
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { text: confession, type, creatorName: name });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/confessions`, { text: confession, type, title, creatorName: name });
 
             return res.data
         },
@@ -37,13 +39,18 @@ function NewConfession() {
     })
 
     return (
-        <section className="flex flex-col justify-center items-center gap-4 px-4 py-20">
+        <section className="flex flex-col justify-center items-center gap-4 px-4 py-20 sm:px-20 md:px-60 lg:px-100">
             <h2 className="text-xl font-semibold text-green-500">Post a new confession</h2>
             <article className="flex flex-col gap-2 w-full">
+                <Input
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    placeholder="Last summer I..."
+                />
                 <Textarea
                     onChange={(e) => setConfession(e.target.value)}
                     value={confession}
-                    placeholder="Last summer I..."
+                    placeholder="Go into great detail..."
                 />
                 <Button disabled={creatingConfession} type="button" onClick={() => {
                     createConfession()

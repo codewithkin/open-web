@@ -1,6 +1,7 @@
 export interface Confession {
     id: string;
     text?: string;
+    title: String,
     audioUrl?: string;
     creatorName: string;
     likes: ConfessionLike[];
