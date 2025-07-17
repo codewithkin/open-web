@@ -92,6 +92,22 @@ function Confession({ confession }: { confession: ConfessionType }) {
             <Card onClick={() => {
                 router.push(`/confessions/${confession.id}`);
             }} className="w-full bg-gradient-to-tr from-cyan-500 pt-4 md:pb-8 to-pink-400">
+                <article className="flex items-center gap-2 px-4">
+                    <Avatar>
+                        <AvatarFallback className="capitalize bg-white text-black w-8 h-8">
+                            {confession.creatorName.charAt(0)}
+                        </AvatarFallback>
+                    </Avatar>
+
+                    
+                                                    <article className="flex flex-col items-start">
+                                                        {/* User data */}
+                                                        <article className="flex items-center gap-8">
+                                                            <h2 className="text-sm font-semibold capitalize">{confession.creatorName}</h2>
+                                                        </article>
+                                                        <p className="text-gray-100 text-xs whitespace-pre">{formatDistanceToNow(new Date(confession.postedAt))} ago</p>
+                                                    </article>
+                </article>
                 <article className="min-h-[50px] md:min-h-[100px]"></article>
                 <CardContent>
                     <p className="text-xl md:text-2xl font-bold text-white">
