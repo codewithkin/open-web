@@ -108,7 +108,7 @@ function Confession({ confession }: { confession: ConfessionType }) {
                                                         <p className="text-gray-100 text-xs whitespace-pre">{formatDistanceToNow(new Date(confession.postedAt))} ago</p>
                                                     </article>
                 </article>
-                <article className="min-h-[50px] md:min-h-[100px]"></article>
+                <article className="min-h-[20px] md:min-h-[70px]"></article>
                 <CardContent>
                     <p className="text-xl md:text-2xl font-bold text-white">
                         {confession.title && (
